@@ -2,9 +2,18 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
 from xml.dom import minidom
+import threading
+import time
+
+
+cnt = 0
+his, los, weas = [], [], []
+flag = False
 
 
 def cat_data():
+
+    global flag, his, los, weas
 
     src = urlopen('http://www.weather.com.cn/weather/101280101.shtml')
     soup = BeautifulSoup(src, 'html.parser')
@@ -12,18 +21,42 @@ def cat_data():
     tem_tags = soup.find_all('p', class_='tem')
     wea_tags = soup.find_all('p', class_='wea')
 
-    his, los, weas = [], [], []
     for i in range(7):
         weas.append(wea_tags[i].string)
         his.append(re.search('\d+', tem_tags[i].span.string).group())
         los.append(re.search('\d+', tem_tags[i].i.string).group())
 
-    return weas, his, los
+    flag = True
+
+
+def count_down():
+
+    global cnt, flag, crawler_thread
+
+    while flag:
+
+        time.sleep(1)
+        cnt += 1
+        print(cnt)
+
+        if cnt >= 5:
+            cnt = 0
+            crawler_thread.start()
+
+
+crawler_thread = threading.Thread(target=cat_data)
 
 
 def xml_root():
 
-    weas, his, los = cat_data()
+    threading.Thread(target=count_down).start()
+
+    global flag, his, los, weas, crawler_thread
+
+    crawler_thread.start()
+
+    while not flag:
+        pass
 
     xmldoc = minidom.Document()
 
