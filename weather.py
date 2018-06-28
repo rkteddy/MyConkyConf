@@ -4,14 +4,58 @@ import re
 from xml.dom import minidom
 import threading
 import time
+from translate import Translator
+import info
 
+import random
+import urllib.parse
+import hashlib
+import json
 
 cnt = 0
 his, los, weas = [], [], []
 flag = False
 
+url_baidu = 'http://api.fanyi.baidu.com/api/trans/vip/translate'
+
+
+def baidu_translate(text, f='zh', t='en'):
+
+    salt = random.randint(32768, 65536)
+    sign = info.appid + text + str(salt) + info.secretKey
+    sign = hashlib.md5(sign.encode()).hexdigest()
+    url = url_baidu + '?appid=' + appid + '&q=' + urllib.parse.quote(text) + '&from=' + f + '&to=' + t + \
+        '&salt=' + str(salt) + '&sign=' + sign
+    response = urllib.request.urlopen(url)
+    content = response.read().decode('utf-8')
+    data = json.loads(content)
+    result = str(data['trans_result'][0]['dst'])
+    print(result)
+
+
+def zh2en(str):
+
+    translator = Translator(from_lang='zh', to_lang='en')
+
+    return translator.translate(str)
+
 
 def cat_data():
+
+    global flag, his, los, weas
+
+    src = urlopen('https://weather.com/weather/today/l/CHXX0037:1:CH')
+    soup = BeautifulSoup(src, 'html.parser')
+
+    wea = soup.find(class_='today-daypart-wxphrase')
+    first_tag = soup.find(id='daypart-1')
+
+    first_tem = first_tag.find(class_='today-daypart-temp').span.next
+
+    flag = True
+
+
+def cat_data_cn():
 
     global flag, his, los, weas
 
@@ -29,6 +73,9 @@ def cat_data():
     flag = True
 
 
+crawler_thread = threading.Thread(target=cat_data_cn)
+
+
 def count_down():
 
     global cnt, flag, crawler_thread
@@ -42,9 +89,6 @@ def count_down():
         if cnt >= 5:
             cnt = 0
             crawler_thread.start()
-
-
-crawler_thread = threading.Thread(target=cat_data)
 
 
 def xml_root():
@@ -93,5 +137,5 @@ def xml_root():
 
 if __name__ == '__main__':
 
-    # print(cat_data())
+    # cat_data()
     xml_root()
