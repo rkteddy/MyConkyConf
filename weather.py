@@ -13,10 +13,13 @@ import hashlib
 import json
 
 cnt = 0
-his, los, weas = [], [], []
+his, los, weas1, weas2 = [], [], [], []
 flag = False
 
 url_baidu = 'http://api.fanyi.baidu.com/api/trans/vip/translate'
+
+Weather_Icons = {'多云': 'c', '雷阵雨': 'l', '小雨': 's', '中雨': 't', '大雨': 'u', '暴雨': 'i',
+                 '晴': 'a', '阴': 'd', '小雪': 'o', '中雪': 'p', '大雪': 'q', '暴雪': 'r'}
 
 
 def baidu_translate(text, f='zh', t='en'):
@@ -24,7 +27,7 @@ def baidu_translate(text, f='zh', t='en'):
     salt = random.randint(32768, 65536)
     sign = info.appid + text + str(salt) + info.secretKey
     sign = hashlib.md5(sign.encode()).hexdigest()
-    url = url_baidu + '?appid=' + appid + '&q=' + urllib.parse.quote(text) + '&from=' + f + '&to=' + t + \
+    url = url_baidu + '?appid=' + info.appid + '&q=' + urllib.parse.quote(text) + '&from=' + f + '&to=' + t + \
         '&salt=' + str(salt) + '&sign=' + sign
     response = urllib.request.urlopen(url)
     content = response.read().decode('utf-8')
@@ -66,8 +69,19 @@ def cat_data_cn():
     wea_tags = soup.find_all('p', class_='wea')
 
     for i in range(7):
-        weas.append(wea_tags[i].string)
-        his.append(re.search('\d+', tem_tags[i].span.string).group())
+        wea_string = wea_tags[i].string
+        result = re.search('转', wea_string)
+        if result is not None:
+            weas1.append(wea_string[:result.start()])
+            weas2.append(wea_string[result.end():])
+        else:
+            weas1.append(wea_string)
+            weas2.append(wea_string)
+
+        if tem_tags[i].span is not None:
+            his.append(re.search('\d+', tem_tags[i].span.string).group())
+        else:
+            his.append(re.search('\d+', tem_tags[i].i.string).group())
         los.append(re.search('\d+', tem_tags[i].i.string).group())
 
     flag = True
@@ -86,7 +100,7 @@ def count_down():
         cnt += 1
         print(cnt)
 
-        if cnt >= 5:
+        if cnt >= 3:
             cnt = 0
             crawler_thread.start()
 
@@ -108,9 +122,15 @@ def xml_root():
     xmldoc.appendChild(root)
 
     tem_node = xmldoc.createElement('Tempreture')
-    wea_node = xmldoc.createElement('Weather')
+    wea1_node = xmldoc.createElement('Weather1')
+    wea2_node = xmldoc.createElement('Weather2')
+    icon1_node = xmldoc.createElement('Icon1')
+    icon2_node = xmldoc.createElement('Icon2')
     root.appendChild(tem_node)
-    root.appendChild(wea_node)
+    root.appendChild(wea1_node)
+    root.appendChild(wea2_node)
+    root.appendChild(icon1_node)
+    root.appendChild(icon2_node)
 
     hi_node = xmldoc.createElement('Highest')
     lo_node = xmldoc.createElement('Lowest')
@@ -118,9 +138,21 @@ def xml_root():
     tem_node.appendChild(lo_node)
 
     for i in range(7):
-        sub_wea = xmldoc.createElement('day' + str(i))
-        sub_wea.appendChild(xmldoc.createTextNode(weas[i]))
-        wea_node.appendChild(sub_wea)
+        sub_icon1 = xmldoc.createElement('day' + str(i))
+        sub_icon1.appendChild(xmldoc.createTextNode(Weather_Icons[weas1[i]]))
+        icon1_node.appendChild(sub_icon1)
+
+        sub_icon2 = xmldoc.createElement('day' + str(i))
+        sub_icon2.appendChild(xmldoc.createTextNode(Weather_Icons[weas2[i]]))
+        icon2_node.appendChild(sub_icon2)
+
+        sub_wea1 = xmldoc.createElement('day' + str(i))
+        sub_wea1.appendChild(xmldoc.createTextNode(weas1[i]))
+        wea1_node.appendChild(sub_wea1)
+
+        sub_wea2 = xmldoc.createElement('day' + str(i))
+        sub_wea2.appendChild(xmldoc.createTextNode(weas2[i]))
+        wea2_node.appendChild(sub_wea2)
 
         sub_hi = xmldoc.createElement('day' + str(i))
         sub_hi.appendChild(xmldoc.createTextNode(his[i]))
