@@ -1,0 +1,102 @@
+######################
+# - Conky settings - #
+######################
+update_interval 1
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+if_up_strictness link
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+format_human_readable
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Liberation Sans:size=8
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_argb_value 200
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+alignment top_left
+gap_x 40 
+gap_y 40
+minimum_size 500 1000
+maximum_width 1000
+
+default_bar_size 60 8
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades no
+
+default_color white
+
+color0 C0C0C0
+color1 CE5C00 
+color2 white
+color3 CE5C00
+
+# Titles
+color4 FFFFFF
+
+# Theme
+# Deep Blue
+ color5 036689
+# Light purple
+#color5 cccfff
+
+# Names
+color6 FFFFFF
+
+# Key words
+color7 FFFFFF
+
+# Non-key words
+color8 FFFFFF
+
+# Graphs
+color8 FFFFFF
+
+
+TEXT
+${color}${font Liberation Sans:style=Bold:size=12}TIME $stippled_hr${font}
+#############
+# - CLOCK - #
+#############
+${execi 300 python3 ~/weather.py}
+${alignc}${color}${font Liberation Serif:style=Bold:size=32}${time %H:%M:%S}${font}
+
+${color0}${alignc}${font Liberation Serif:style=Bold:size=16}${time %d %B %Y}
+${color}${font Liberation Sans:style=Bold:size=12}WEATHER $stippled_hr${font}
+
+###############
+# - WEATHER - #
+###############
+${color}${font style=Bold:size=28}${execi 300 grep day0 ~/weather.xml | sed -n "2, 2p" | sed -r 's/<day0>//g' | sed -r 's/<\/day0>//g' | awk '{print $1}'}${font :size=28}°
+${color}${font WenQuanYi Micro Hei:style=Bold:size=12}${execi 300 grep day0 ~/weather.xml | sed -n "3, 3p" | sed -r 's/<day0>//g' | sed -r 's/<\/day0>//g' | awk '{print $1}'}${font :size=36}${voffset -60}${offset 340}${color5}${font ConkycolorsWeather:size=60}${execi 300 grep day1 ~/weather.xml | sed -n "4, 4p" | sed -r 's/<day1>//g' | sed -r 's/<\/day1>//g' | awk '{print $1}'}
+${voffset -90}${color}$stippled_hr${font}
+${color0}${font Liberation Sasn:style=Bold:size=10}${execi 300 grep day1 ~/weather.xml | sed -n "2, 2p" | sed -r 's/<day1>//g' | sed -r 's/<\/day1>//g' | awk '{print $1}'}/${execi 300 grep day1 ~/weather.xml | sed -n "1, 1p" | sed -r 's/<day1>//g' | sed -r 's/<\/day1>//g' | awk '{print $1}'}°C${offset 135}${execi 300 grep day2 ~/weather.xml | sed -n "2, 2p" | sed -r 's/<day2>//g' | sed -r 's/<\/day2>//g' | awk '{print $1}'}/${execi 300 grep day2 ~/weather.xml | sed -n "1, 1p" | sed -r 's/<day2>//g' | sed -r 's/<\/day2>//g' | awk '{print $1}'}°C${offset 135}${execi 300 grep day3 ~/weather.xml | sed -n "2, 2p" | sed -r 's/<day3>//g' | sed -r 's/<\/day3>//g' | awk '{print $1}'}/${execi 300 grep day3 ~/weather.xml | sed -n "1, 1p" | sed -r 's/<day3>//g' | sed -r 's/<\/day3>//g' | awk '{print $1}'}°C
+
+${color5}${font ConkycolorsWeather:size=30}${execi 300 grep day1 ~/weather.xml | sed -n "4, 4p" | sed -r 's/<day1>//g' | sed -r 's/<\/day1>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day1 ~/weather.xml | sed -n "5, 5p" | sed -r 's/<day1>//g' | sed -r 's/<\/day1>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day3 ~/weather.xml | sed -n "4, 4p" | sed -r 's/<day3>//g' | sed -r 's/<\/day3>//g' | awk '{print $1}'}
+${execi 300 grep day1 ~/weather.xml | sed -n "5, 5p" | sed -r 's/<day1>//g' | sed -r 's/<\/day1>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day1 ~/weather.xml | sed -n "4, 4p" | sed -r 's/<day1>//g' | sed -r 's/<\/day1>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day3 ~/weather.xml | sed -n "5, 5p" | sed -r 's/<day3>//g' | sed -r 's/<\/day3>//g' | awk '{print $1}'}
+${color0}${font Liberation Sasn:style=Bold:size=10}${execi 300 grep day4 ~/weather.xml | sed -n "2, 2p" | sed -r 's/<day4>//g' | sed -r 's/<\/day4>//g' | awk '{print $1}'}/${execi 300 grep day4 ~/weather.xml | sed -n "1, 1p" | sed -r 's/<day4>//g' | sed -r 's/<\/day4>//g' | awk '{print $1}'}°C${offset 135}${execi 300 grep day5 ~/weather.xml | sed -n "2, 2p" | sed -r 's/<day5>//g' | sed -r 's/<\/day5>//g' | awk '{print $1}'}/${execi 300 grep day5 ~/weather.xml | sed -n "1, 1p" | sed -r 's/<day5>//g' | sed -r 's/<\/day5>//g' | awk '{print $1}'}°C${offset 135}${execi 300 grep day6 ~/weather.xml | sed -n "2, 2p" | sed -r 's/<day6>//g' | sed -r 's/<\/day6>//g' | awk '{print $1}'}/${execi 300 grep day6 ~/weather.xml | sed -n "1, 1p" | sed -r 's/<day6>//g' | sed -r 's/<\/day6>//g' | awk '{print $1}'}°C
+
+${color5}${font ConkycolorsWeather:size=30}${execi 300 grep day4 ~/weather.xml | sed -n "4, 4p" | sed -r 's/<day4>//g' | sed -r 's/<\/day4>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day5 ~/weather.xml | sed -n "5, 5p" | sed -r 's/<day5>//g' | sed -r 's/<\/day5>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day6 ~/weather.xml | sed -n "4, 4p" | sed -r 's/<day6>//g' | sed -r 's/<\/day6>//g' | awk '{print $1}'}
+${execi 300 grep day4 ~/weather.xml | sed -n "5, 5p" | sed -r 's/<day4>//g' | sed -r 's/<\/day4>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day5 ~/weather.xml | sed -n "4, 4p" | sed -r 's/<day5>//g' | sed -r 's/<\/day5>//g' | awk '{print $1}'}${offset 160}${execi 300 grep day6 ~/weather.xml | sed -n "5, 5p" | sed -r 's/<day6>//g' | sed -r 's/<\/day6>//g' | awk '{print $1}'}
+
