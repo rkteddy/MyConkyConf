@@ -36,7 +36,7 @@ alignment top_right
 gap_x 25
 gap_y 40
 minimum_size 500 1800
-maximum_width 1000
+maximum_width 500
 
 default_bar_size 60 100
 
@@ -79,43 +79,40 @@ ${color4}${font Liberation Sans:style=Bold:size=12}SYSTEM $stippled_hr${font}
 # - SYSTEM - #
 ##############
 ${color5}${voffset 32}${alignc 0}${font ConkyColorsLogos:size=64}d${font}
-${color5}${offset 4}${voffset 32}${font ConkyColors:size=32}b${font}${color6}${goto 80}${voffset -48}Kernel: ${alignr 5}${color8}${kernel}
-${color6}${goto 80}Uptime: ${alignr 5}${color8}${uptime}
+${color5}${offset 4}${voffset 32}${font ConkyColors:size=32}b${font}${color6}${goto 80}${voffset -48}Kernel: ${font Liberation Sans:style=Bold:size=10}${alignr 5}${color8}${kernel}
+${color6}${goto 80}${font}Uptime: ${alignr 5}${color8}${font Liberation Sans:style=Bold:size=10}${uptime}
 # |--UPDATES
-${color6}${goto 80}Updates: ${offset 300}${color}${execi 360 aptitude search "~U" | wc -l | tail}${font} ${color8} Packages
-# |--CPU
+${color6}${goto 80}${font}Updates: ${offset 225}${color}${font Liberation Sans:style=Bold:size=10}${execi 360 aptitude search "~U" | wc -l | tail}${color8}  Packages
 
-${color5}${offset 4}${voffset 0}${font ConkyColors:size=30}c ${goto 80}${font Liberation Sans:style=Bold:size=12}${voffset -20}${color6}CPUs:
-${voffset 20}${color5}${goto 15}${cpubar 12, 490}
-${font}${offset -20}${voffset 0}${color6}${goto 45}CPU1: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu1}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 0' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C ${alignr 60}${color6}CPU2: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu2}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 1' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C
+# |--CPU
+${color5}${offset 4}${voffset 0}${font ConkyColors:size=30}e ${goto 80}${font}${voffset -20}${color6}CPUs:
+${voffset 30}${color5}${goto 15}${cpubar 12, 490}
+${font}${offset -20}${voffset 20}${color6}${goto 55}CPU1: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu1}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 0' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C ${alignr 30}${color6}CPU2: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu2}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 1' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C
 ${voffset 0}${color8}${font}  ${cpugraph cpu1 80,240 color9 2C001E}${voffset 0}${color8}${font}  ${cpugraph cpu2 80,240 color9 2C001E}
 
-${color6}${goto 40}CPU3: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu3}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 2' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C${alignr 60}${color6}CPU4: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu4}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 3' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C
+${color6}${goto 55}CPU3: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu3}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 2' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C${alignr 30}${color6}CPU4: ${font Liberation Sans:style=Bold:size=10}${color7}${cpu cpu4}%    ${font Liberation Sans:style=Bold:size=10}${color7}${execi 30 sensors | grep 'Core 3' | awk '{print $3}' | sed 's/+//' | sed 's/.0.*//'}°C
 ${voffset 0}${color8}${font}  ${cpugraph cpu1 80,240 color9 2C001E}${voffset 0}${color8}${font}  ${cpugraph cpu2 80,240 color9 2C001E}
 
 # |--MEM
-${offset 4}${color5}${font ConkyColors:size=30}g${font}${color5}${goto 10}${voffset 30}${membar 12,500}${offset -20}${voffset -70}${goto 80}${color6}RAM: ${font Liberation Sans:style=Bold:size=10}${color7}${alignr 10}$memperc%
-${color6}${goto 80}Toal: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${memeasyfree}
-${color6}${goto 80}Used: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${mem}
+${offset 4}${color5}${font ConkyColors:size=30}g${font}${color5}${goto 10}${voffset 30}${membar 12,500}${offset -20}${voffset -70}${goto 80}${color6}${font}Memory: ${font Sans:style=Bold:size=10}${color7}${alignr }$memperc%
+${color6}${goto 80}${font}Total: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${memeasyfree}
+${color6}${goto 80}${font}Used: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${mem}
 
 # |--SWAP
-${offset 4}${voffset 32}${color5}${font ConkyColors:size=30}z${font}${color5}${goto 10}${voffset 30}${swapbar 12,500}${offset -20}${voffset -70}${goto 80}${color6}Swap: ${font Liberation Sans:style=Bold:size=10}${color7}${alignr 10}$swapperc%
-${color6}${goto 80}Toal: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${swapmax}
-${color6}${goto 80}Used: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${swap}
+${offset 4}${voffset 32}${color5}${font ConkyColors:size=30}z${font}${color5}${goto 10}${voffset 30}${swapbar 12,500}${offset -20}${voffset -70}${goto 80}${color6}${font}Swap: ${font Sans:style=Bold:size=10}${color7}${alignr 10}$swapperc%
+${color6}${goto 80}${font}Toal: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${swapmax}
+${color6}${goto 80}${font}Used: ${alignr 0}${font Liberation Sans:style=Bold:size=10}${color7}${swap}
 
+${offset 4}${voffset 32}${color5}${font ConkyColors:size=30}i${goto 80}${voffset -45}${color6}${font}Hard Disks:
+${color6}${goto 80}${font}Root${goto 150}${font Liberation Sans:style=Bold:size=10}${fs_used /} / ${fs_size /}${alignr}${color5}${fs_bar 8,150 /}
+${color6}${goto 80}${font}Home${goto 150}${font Liberation Sans:style=Bold:size=10}${color6}${fs_used /home} / ${fs_size /home}${alignr}${color5}${fs_bar 8,150 /home}
 
-# |--PROC
-${voffset 40}${color5}${font ConkyColors:size=32}C${font}${color6}${goto 48}${voffset -80}Processes: ${color6}${alignr 30}CPU${alignr}RAM
-${voffset -1}${goto 80}${color6}${top name 1}${font Liberation Sans:style=Bold:size=10}${color7} ${alignr 27}${top cpu 1}${alignr }${top mem 1}
-${voffset -1}${goto 80}${color6}${top name 2}${font Liberation Sans:style=Bold:size=10}${color7} ${alignr 27}${top cpu 2}${alignr }${top mem 2}
-${voffset -1}${goto 80}${color6}${top name 3}${font Liberation Sans:style=Bold:size=10}${color7} ${alignr 27}${top cpu 3}${alignr }${top mem 3}
-${voffset -1}${goto 80}${color6}${top name 4}${font Liberation Sans:style=Bold:size=10}${color7} ${alignr 27}${top cpu 4}${alignr }${top mem 4}
-${voffset -1}${goto 80}${color6}${top name 5}${font Liberation Sans:style=Bold:size=10}${color7} ${alignr 27}${top cpu 5}${alignr }${top mem 5}
 
 ###############
 # - NETWORK - #
 ###############
 ${color4}${voffset -4}${font Liberation Sans:style=Bold:size=10}NETWORK $stippled_hr${font}
+
 # |--WLAN0
 ${if_up wlan0}
 ${voffset -5}${color0}${font ConkyColors:size=30}s${font}${color}${goto 32}${voffset -12}Up: ${font Liberation Sans:style=Bold:size=8}${color1}${upspeed wlan0}${color}${font} ${alignr}${color2}${upspeedgraph wlan0 8,60 77210F 2C001E}${color}
