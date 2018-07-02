@@ -1,0 +1,128 @@
+######################
+# - Conky settings - #
+######################
+update_interval 3
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+if_up_strictness link
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+format_human_readable
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Liberation Sans:size=10
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_argb_value 200
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+alignment top_right
+gap_x 550
+gap_y 40
+minimum_size 500 1800
+maximum_width 500
+
+default_bar_size 60 100
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades no
+
+default_color white
+
+color0 A9A9A9
+color1 CE5C00 
+color2 white
+color3 CE5C00
+
+# Titles
+color4 FFFFFF
+
+# Theme
+# Deep Blue
+ color5 036689
+# Light purple
+#color5 cccfff
+
+# Names
+color6 FFFFFF
+
+# Key words
+color7 FFFFFF
+
+# Non-key words
+color8 FFFFFF
+
+# Graphs
+color8 FFFFFF
+
+TEXT
+# |--PROC
+${color4}${font Liberation Sans:style=Bold:size=12}PROCESS $stippled_hr${font}
+
+${voffset 80}${font}${color5}${voffset -80}Top CPU Processes:
+ 
+${color5}${goto 80}Name${alignr 95}PID${alignr 45}CPU${alignr}MEM
+
+${goto 80}${font Liberation Sans:style=Bold:size=10}${color7}${top name 1}${alignr 70}${top pid 1}${alignr 40}${top cpu 1}${alignr}${top mem 1}
+
+${goto 80}${top name 2}${alignr 70}${top pid 2}${alignr 40}${top cpu 2}${alignr}${top mem 2}
+
+${goto 80}${top name 3}${alignr 70}${top pid 3}${alignr 40}${top cpu 3}${alignr}${top mem 3}
+
+${goto 80}${top name 4}${alignr 70}${top pid 4}${alignr 40}${top cpu 4}${alignr}${top mem 4}
+
+${goto 80}${top name 5}${alignr 70}${top pid 1}${alignr 40}${top cpu 5}${alignr}${top mem 5}
+
+${goto 80}${top name 6}${alignr 70}${top pid 1}${alignr 40}${top cpu 6}${alignr}${top mem 6}
+
+${goto 80}${top name 7}${alignr 70}${top pid 1}${alignr 40}${top cpu 7}${alignr}${top mem 7}
+
+${goto 80}${top name 8}${alignr 70}${top pid 1}${alignr 40}${top cpu 8}${alignr}${top mem 8}
+
+${goto 80}${top name 9}${alignr 70}${top pid 1}${alignr 40}${top cpu 9}${alignr}${top mem 9}
+
+${goto 80}${top name 10}${alignr 70}${top pid 1}${alignr 40}${top cpu 10}${alignr}${top mem 10}
+
+${voffset 80}${font}${color5}${voffset -80}Top MEM Processes:
+ 
+${color5}${goto 80}Name${alignr 95}PID${alignr 45}CPU${alignr}MEM
+
+${goto 80}${font Liberation Sans:style=Bold:size=10}${color7}${top_mem name 1}${alignr 70}${top pid 1}${alignr 40}${top_mem cpu 1}${alignr}${top_mem mem 1}
+
+${goto 80}${top_mem name 2}${alignr 70}${top pid 2}${alignr 40}${top_mem cpu 2}${alignr}${top_mem mem 2}
+
+${goto 80}${top_mem name 3}${alignr 70}${top pid 3}${alignr 40}${top_mem cpu 3}${alignr}${top_mem mem 3}
+
+${goto 80}${top_mem name 4}${alignr 70}${top pid 4}${alignr 40}${top_mem cpu 4}${alignr}${top_mem mem 4}
+
+${goto 80}${top_mem name 5}${alignr 70}${top pid 1}${alignr 40}${top_mem cpu 5}${alignr}${top_mem mem 5}
+
+${goto 80}${top_mem name 6}${alignr 70}${top pid 1}${alignr 40}${top_mem cpu 6}${alignr}${top_mem mem 6}
+
+${goto 80}${top_mem name 7}${alignr 70}${top pid 1}${alignr 40}${top_mem cpu 7}${alignr}${top_mem mem 7}
+
+${goto 80}${top_mem name 8}${alignr 70}${top pid 1}${alignr 40}${top_mem cpu 8}${alignr}${top_mem mem 8}
+
+${goto 80}${top_mem name 9}${alignr 70}${top pid 1}${alignr 40}${top_mem cpu 9}${alignr}${top_mem mem 9}
+
+${goto 80}${top_mem name 10}${alignr 70}${top pid 1}${alignr 40}${top_mem cpu 10}${alignr}${top_mem mem 10}
+
+
